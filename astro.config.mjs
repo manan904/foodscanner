@@ -1,7 +1,13 @@
-import { defineConfig } from 'astro/config';
-
-export default defineConfig({
+// astro.config.mjs
+export default {
   build: {
-    outDir: './docs', // Set the output directory to 'docs' for GitHub Pages
+    outdir: './docs',
+    rollupOptions: {
+      external: ['astro/app'],
+     } // Set the output directory to 'docs' for GitHub Page
   },
-});
+  markdown: {
+    // options for markdown processing (optional)
+  },
+  // add more configuration options here
+};
