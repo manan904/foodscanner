@@ -3,35 +3,36 @@ name: Deploy Astro Site to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - main  # Deploy when you push to the main branch
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
+      # 1. Checkout the code
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Set up Node.js environment
+      # 2. Set up Node.js with a specific version (use a version supported by Astro)
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'  # Or a specific Node.js version you're using
+          node-version: '18.14.1'  # Choose the version that's compatible with your project
 
-      # Install dependencies
+      # 3. Install dependencies
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm ci  # Clean install dependencies based on package-lock.json
 
-      # Build the project
+      # 4. Build the Astro project
       - name: Build Astro project
         run: npm run build
 
-      # Deploy to GitHub Pages
+      # 5. Deploy to GitHub Pages (pushes to gh-pages branch)
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: docs  # This is where Astro will output the static files
-          token: ${{ secrets.GITHUB_TOKEN }}  # Token is automatically provided by GitHub
+          folder: docs  # Output folder for static files
+          token: ${{ secrets.GITHUB_TOKEN }}  # GitHub token automatically provided by GitHub Actions
