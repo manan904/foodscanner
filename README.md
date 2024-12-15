@@ -1,0 +1,2 @@
+# foodscanner
+Food Scanning app
