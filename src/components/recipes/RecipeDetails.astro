@@ -1,0 +1,101 @@
+---
+import type { Recipe } from '../../data/content';
+
+interface Props {
+  recipe: Recipe;
+}
+
+const { recipe } = Astro.props;
+---
+
+<article class="recipe-details">
+  <header>
+    <h1>{recipe.title}</h1>
+    <p class="description">{recipe.description}</p>
+    <div class="meta">
+      <span>Prep: {recipe.prepTime}</span>
+      <span>Cook: {recipe.cookTime}</span>
+      <span>Servings: {recipe.servings}</span>
+    </div>
+  </header>
+
+  <img src={recipe.image} alt={recipe.title} />
+
+  <div class="content">
+    <section class="ingredients">
+      <h2>Ingredients</h2>
+      <ul>
+        {recipe.ingredients.map(ingredient => (
+          <li>{ingredient}</li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="instructions">
+      <h2>Instructions</h2>
+      <ol>
+        {recipe.instructions.map(step => (
+          <li>{step}</li>
+        ))}
+      </ol>
+    </section>
+  </div>
+</article>
+
+<style>
+  .recipe-details {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .description {
+    color: #666;
+    margin: 1rem 0;
+  }
+
+  .meta {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    color: #666;
+  }
+
+  img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+  }
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  ul, ol {
+    list-style-position: inside;
+    line-height: 1.8;
+  }
+
+  li {
+    margin-bottom: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .content {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

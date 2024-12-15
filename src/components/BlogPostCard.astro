@@ -1,0 +1,73 @@
+---
+interface Props {
+  post: {
+    title: string;
+    excerpt: string;
+    image: string;
+    date: string;
+    author: string;
+    slug: string;
+  };
+}
+
+const { post } = Astro.props;
+---
+
+<article class="blog-card">
+  <img src={post.image} alt={post.title} />
+  <div class="content">
+    <h3>{post.title}</h3>
+    <p>{post.excerpt}</p>
+    <div class="meta">
+      <span>{new Date(post.date).toLocaleDateString()}</span>
+      <span>By {post.author}</span>
+    </div>
+    <a href={`/blog/${post.slug}`} class="button">Read More</a>
+  </div>
+</article>
+
+<style>
+  .blog-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .blog-card:hover {
+    transform: translateY(-4px);
+  }
+  
+  img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .content {
+    padding: 1.5rem;
+  }
+  
+  .meta {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  .button {
+    display: inline-block;
+    background: var(--primary-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+  }
+  
+  .button:hover {
+    background: #3d8a3a;
+  }
+</style>

@@ -1,0 +1,57 @@
+---
+import Layout from '../layouts/Layout.astro';
+import RecipeCard from '../components/RecipeCard.astro';
+import BlogPostCard from '../components/BlogPostCard.astro';
+import { getRecipes, getBlogPosts } from '../data/content';
+
+const featuredRecipes = getRecipes().slice(0, 3);
+const latestPosts = getBlogPosts().slice(0, 3);
+---
+
+<Layout title="Welcome to Veggie Delights">
+  <section class="hero">
+    <h1>Discover Delicious Vegetarian Recipes</h1>
+    <p>Explore our collection of mouth-watering vegetarian dishes and food stories</p>
+  </section>
+  
+  <section class="featured-recipes">
+    <h2>Featured Recipes</h2>
+    <div class="recipe-grid">
+      {featuredRecipes.map(recipe => <RecipeCard recipe={recipe} />)}
+    </div>
+  </section>
+  
+  <section class="latest-posts">
+    <h2>Latest Blog Posts</h2>
+    <div class="post-grid">
+      {latestPosts.map(post => <BlogPostCard post={post} />)}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hero {
+    text-align: center;
+    padding: 4rem 0;
+    background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('/images/hero-bg.jpg');
+    background-size: cover;
+    border-radius: 1rem;
+    margin-bottom: 3rem;
+  }
+  
+  .hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .recipe-grid, .post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  
+  section {
+    margin-bottom: 4rem;
+  }
+</style>

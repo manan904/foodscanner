@@ -1,0 +1,36 @@
+---
+import type { Recipe } from '../../data/content';
+import RecipeCard from '../RecipeCard.astro';
+
+interface Props {
+  recipes: Recipe[];
+}
+
+const { recipes } = Astro.props;
+---
+
+<section class="related-recipes">
+  <h2>You Might Also Like</h2>
+  <div class="recipes-grid">
+    {recipes.map(recipe => <RecipeCard recipe={recipe} />)}
+  </div>
+</section>
+
+<style>
+  .related-recipes {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid #ddd;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .recipes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+</style>

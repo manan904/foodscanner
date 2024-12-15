@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getRecipes } from '../../data/content';
+import RecipeDetails from '../../components/recipes/RecipeDetails.astro';
+import RelatedRecipes from '../../components/recipes/RelatedRecipes.astro';
+
+export async function getStaticPaths() {
+  const recipes = getRecipes();
+  return recipes.map(recipe => ({
+    params: { slug: recipe.slug },
+    props: { recipe }
+  }));
+}
+
+const { recipe } = Astro.props;
+const relatedRecipes = getRecipes()
+  .filter(r => r.id !== recipe.id)
+  .slice(0, 3);
+---
+
+<Layout 
+  title={recipe.title}
+  description={recipe.description}
+  ogImage={recipe.image}
+>
+  <RecipeDetails recipe={recipe} />
+  <RelatedRecipes recipes={relatedRecipes} />
+</Layout>

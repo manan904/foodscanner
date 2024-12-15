@@ -1,0 +1,52 @@
+---
+import SearchBar from './SearchBar.astro';
+---
+
+<header>
+  <nav>
+    <div class="logo">
+      <a href="/">FoodScanner</a>
+    </div>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/recipes">Recipes</a>
+      <a href="/blog">Blog</a>
+      <a href="/about">About</a>
+    </div>
+    <SearchBar />
+  </nav>
+</header>
+
+<style>
+  header {
+    background: var(--background-color);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 1rem;
+  }
+  
+  nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo a {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+  
+  .nav-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    margin-left: 2rem;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links a:hover {
+    color: var(--primary-color);
+  }
+</style>

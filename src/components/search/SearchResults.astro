@@ -1,0 +1,92 @@
+---
+import type { Recipe, BlogPost } from '../../data/content';
+import RecipeCard from '../RecipeCard.astro';
+import BlogPostCard from '../BlogPostCard.astro';
+
+interface Props {
+  query: string;
+  recipes: Recipe[];
+  posts: BlogPost[];
+}
+
+const { query, recipes, posts } = Astro.props;
+const totalResults = recipes.length + posts.length;
+---
+
+<div class="search-results">
+  <header>
+    <h1>Search Results</h1>
+    <p>Found {totalResults} results for "{query}"</p>
+  </header>
+
+  {recipes.length > 0 && (
+    <section>
+      <h2>Recipes ({recipes.length})</h2>
+      <div class="results-grid">
+        {recipes.map(recipe => <RecipeCard recipe={recipe} />)}
+      </div>
+    </section>
+  )}
+
+  {posts.length > 0 && (
+    <section>
+      <h2>Blog Posts ({posts.length})</h2>
+      <div class="results-grid">
+        {posts.map(post => <BlogPostCard post={post} />)}
+      </div>
+    </section>
+  )}
+
+  {totalResults === 0 && (
+    <div class="no-results">
+      <p>No results found for "{query}"</p>
+      <p>Try different keywords or browse our <a href="/recipes">recipes</a> and <a href="/blog">blog posts</a>.</p>
+    </div>
+  )}
+</div>
+
+<style>
+  .search-results {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  header p {
+    color: #666;
+  }
+
+  section {
+    margin-bottom: 3rem;
+  }
+
+  h2 {
+    margin-bottom: 1.5rem;
+  }
+
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 3rem;
+    background: #f5f5f5;
+    border-radius: 1rem;
+  }
+
+  .no-results a {
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+
+  .no-results a:hover {
+    text-decoration: underline;
+  }
+</style>

@@ -1,0 +1,59 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TeamMember from '../components/about/TeamMember.astro';
+import AboutHero from '../components/about/AboutHero.astro';
+import Mission from '../components/about/Mission.astro';
+
+const teamMembers = [
+  {
+    name: 'Sarah Green',
+    role: 'Head Chef & Founder',
+    bio: 'With over 15 years of experience in vegetarian cuisine, Sarah leads our culinary team with passion and creativity.',
+    image: '/images/team/sarah.jpg'
+  },
+  {
+    name: 'Michael Herbs',
+    role: 'Food Writer',
+    bio: 'A certified nutritionist and passionate writer, Michael brings expert knowledge to our blog content.',
+    image: '/images/team/michael.jpg'
+  },
+  {
+    name: 'Lisa Chen',
+    role: 'Recipe Developer',
+    bio: 'Lisa specializes in creating innovative vegetarian recipes that are both healthy and delicious.',
+    image: '/images/team/lisa.jpg'
+  }
+];
+---
+
+<Layout 
+  title="About Us" 
+  description="Learn about our mission to promote healthy and delicious vegetarian cooking."
+>
+  <AboutHero />
+  <Mission />
+  <section class="team">
+    <h2>Meet Our Team</h2>
+    <div class="team-grid">
+      {teamMembers.map(member => <TeamMember member={member} />)}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .team {
+    margin: 4rem auto;
+    max-width: 1200px;
+  }
+
+  .team h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+</style>

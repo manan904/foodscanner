@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getBlogPosts } from '../../data/content';
+import BlogContent from '../../components/blog/BlogContent.astro';
+import RelatedPosts from '../../components/blog/RelatedPosts.astro';
+
+export async function getStaticPaths() {
+  const posts = getBlogPosts();
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+const relatedPosts = getBlogPosts()
+  .filter(p => p.id !== post.id)
+  .slice(0, 3);
+---
+
+<Layout 
+  title={post.title}
+  description={post.excerpt}
+  ogImage={post.image}
+>
+  <BlogContent post={post} />
+  <RelatedPosts posts={relatedPosts} />
+</Layout>

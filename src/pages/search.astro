@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import RecipeCard from '../components/RecipeCard.astro';
+import BlogPostCard from '../components/BlogPostCard.astro';
+import SearchResults from '../components/search/SearchResults.astro';
+import { getRecipes, getBlogPosts } from '../data/content';
+
+const query = Astro.url.searchParams.get('q')?.toLowerCase() || '';
+const recipes = getRecipes().filter(recipe => 
+  recipe.title.toLowerCase().includes(query) || 
+  recipe.description.toLowerCase().includes(query)
+);
+const posts = getBlogPosts().filter(post => 
+  post.title.toLowerCase().includes(query) || 
+  post.excerpt.toLowerCase().includes(query) ||
+  post.content.toLowerCase().includes(query)
+);
+---
+
+<Layout 
+  title={`Search Results for "${query}"`}
+  description={`Search results for ${query} - Find recipes and articles`}
+>
+  <SearchResults 
+    query={query}
+    recipes={recipes}
+    posts={posts}
+  />
+</Layout>

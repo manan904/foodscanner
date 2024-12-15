@@ -1,0 +1,36 @@
+---
+import type { BlogPost } from '../../data/content';
+import BlogPostCard from '../BlogPostCard.astro';
+
+interface Props {
+  posts: BlogPost[];
+}
+
+const { posts } = Astro.props;
+---
+
+<section class="related-posts">
+  <h2>Related Articles</h2>
+  <div class="posts-grid">
+    {posts.map(post => <BlogPostCard post={post} />)}
+  </div>
+</section>
+
+<style>
+  .related-posts {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid #ddd;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+</style>

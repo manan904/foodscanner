@@ -1,0 +1,37 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import RecipeCard from '../../components/RecipeCard.astro';
+import RecipeFilters from '../../components/recipes/RecipeFilters.astro';
+import { getRecipes } from '../../data/content';
+
+const recipes = getRecipes();
+---
+
+<Layout 
+  title="Vegetarian Recipes" 
+  description="Browse our collection of delicious vegetarian recipes."
+>
+  <section class="recipes-header">
+    <h1>Our Recipes</h1>
+    <p>Discover our collection of mouth-watering vegetarian dishes</p>
+  </section>
+
+  <RecipeFilters />
+  
+  <div class="recipes-grid">
+    {recipes.map(recipe => <RecipeCard recipe={recipe} />)}
+  </div>
+</Layout>
+
+<style>
+  .recipes-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .recipes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+</style>
