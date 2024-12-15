@@ -1,4 +1,7 @@
-import { defineConfig } from 'astro/config';
+// astro.config.mjs
 
-// https://astro.build/config
-export default defineConfig({});
+export default {
+  build: {
+    out: 'docs', // This specifies the folder for build output
+  },
+};
